@@ -317,3 +317,74 @@ body.lontano .su-fisso{opacity:1;transform:none}
 }
 
 html.en .gruppo h5 em{display:none}
+
+/* ---------- v3 (5/11): colazione asiatica e fast food ---------- */
+.cz-testa{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center;margin-bottom:50px}
+.cz-scena{padding:7px;border-radius:34px;background:rgba(239,230,214,.03);box-shadow:inset 0 0 0 1px var(--filo)}
+.cz-scena img{width:100%;aspect-ratio:830/560;object-fit:cover;border-radius:27px}
+.cz-ore{display:flex;align-items:baseline;gap:12px;margin:4px 0 14px}
+.cz-ore b{font:500 30px/1 var(--serif);color:var(--oro)}
+.cz-ore span{font:500 10.5px/1 var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--fumo)}
+.cz-lista{list-style:none;display:grid;grid-template-columns:1fr 1fr;column-gap:64px}
+.cz-voce{display:flex;gap:18px;align-items:center;padding:16px 0;border-bottom:1px solid rgba(214,178,110,.07)}
+.cz-foto{flex:none;width:108px;aspect-ratio:3/2;border-radius:16px;overflow:hidden;box-shadow:inset 0 0 0 1px var(--filo2)}
+.cz-foto img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--molla)}
+.cz-voce:hover .cz-foto img{transform:scale(1.08)}
+
+.ff-gruppo{margin-top:46px}
+.ff-gruppo h5{font:500 11px/1 var(--sans);letter-spacing:.24em;text-transform:uppercase;color:var(--oro);padding-bottom:12px;margin-bottom:18px;border-bottom:1px solid var(--filo)}
+.ff-griglia{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+.ff-guscio{height:100%;padding:6px;border-radius:28px;background:rgba(239,230,214,.03);box-shadow:inset 0 0 0 1px var(--filo)}
+.ff-nucleo{height:100%;border-radius:22px;overflow:hidden;background:linear-gradient(180deg,var(--carta2),var(--carta));
+  box-shadow:inset 0 1px 0 rgba(241,223,174,.08);display:flex;flex-direction:column}
+.ff-foto{aspect-ratio:1;overflow:hidden}
+.ff-foto img{width:100%;height:100%;object-fit:cover;transition:transform 1.1s var(--molla)}
+.ff-carta:hover .ff-foto img{transform:scale(1.06)}
+.ff-testo{padding:16px 18px 20px;display:flex;flex-direction:column;flex:1}
+.ff-testo .pi-n{margin-bottom:8px}
+.ff-testo h4{font-size:24px;font-weight:500;line-height:1.1}
+.ff-testo p{font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--fumo);line-height:1.55;margin:8px 0 14px}
+.ff-testo b{margin-top:auto;font:500 22px/1 var(--serif);color:var(--oro)}
+
+.giornata{padding:30px 0 150px}
+.gi-carte{max-width:1320px;margin:0 auto;padding:0 5vw;display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.gi-guscio{height:100%;padding:8px;border-radius:40px;background:rgba(239,230,214,.03);box-shadow:inset 0 0 0 1px var(--filo);
+  transition:box-shadow .8s var(--molla),transform .8s var(--molla)}
+.gi-carta:hover .gi-guscio{transform:translateY(-6px);box-shadow:inset 0 0 0 1px var(--filo2),0 40px 80px -40px #000}
+.gi-nucleo{height:100%;border-radius:32px;overflow:hidden;background:linear-gradient(170deg,var(--carta2),#120d0a 75%);
+  box-shadow:inset 0 1px 0 rgba(241,223,174,.08);display:flex;flex-direction:column}
+.gi-foto{aspect-ratio:16/10;overflow:hidden}
+.gi-foto img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--molla)}
+.gi-carta:hover .gi-foto img{transform:scale(1.05)}
+.gi-testo{padding:30px 34px 34px;display:flex;flex-direction:column;flex:1}
+.gi-testo h3{font-size:clamp(38px,4vw,56px);margin:4px 0 12px}
+.gi-testo p{color:var(--fumo);max-width:460px}
+.gi-mini{display:flex;gap:8px;margin:22px 0 26px}
+.gi-mini img{width:64px;height:64px;border-radius:16px;object-fit:cover;box-shadow:0 0 0 1px var(--filo2)}
+.gi-vai{margin-top:auto;align-self:flex-start;display:inline-flex;align-items:center;gap:14px;padding:7px 7px 7px 24px;border-radius:99px;
+  font:500 14px/1 var(--sans);letter-spacing:.06em;box-shadow:inset 0 0 0 1px var(--filo2);background:rgba(239,230,214,.03)}
+.gi-vai i{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--zaff);color:#1a0d06;transition:transform .6s var(--molla)}
+.gi-vai svg{width:18px;height:18px}
+.gi-carta:hover .gi-vai i{transform:translate(3px,-2px) scale(1.06)}
+.isola-link a{padding:12px 12px;white-space:nowrap}
+
+@media (max-width:900px){
+  .cz-testa{grid-template-columns:1fr;gap:26px;margin-bottom:26px}
+  .cz-lista{grid-template-columns:1fr}
+  .cz-foto{width:92px}
+  .ff-griglia{grid-template-columns:1fr 1fr;gap:10px}
+  .ff-guscio{padding:4px;border-radius:22px}
+  .ff-nucleo{border-radius:18px}
+  .ff-testo{padding:12px 12px 14px}
+  .ff-testo h4{font-size:19px}
+  .ff-testo p{font-size:10px;letter-spacing:.05em}
+  .ff-testo b{font-size:19px}
+  .giornata{padding:10px 0 100px}
+  .gi-carte{grid-template-columns:1fr;padding:0 12px;gap:14px}
+  .gi-guscio{border-radius:32px;padding:6px}
+  .gi-nucleo{border-radius:26px}
+  .gi-testo{padding:24px 22px 26px}
+  .gi-mini img{width:54px;height:54px}
+}
+.cz-voce .it{font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--fumo);margin-top:6px;line-height:1.6}
+.cz-voce .en{font:italic 400 15.5px/1.4 var(--serif);color:var(--fumo2);margin-top:3px}
