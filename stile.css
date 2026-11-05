@@ -443,3 +443,68 @@ html.en .gruppo h5 em{display:none}
 .yt i svg{width:34px;height:34px}
 .yt:hover img{opacity:1}.yt:hover i{transform:scale(1.08)}
 @media (max-width:900px){.video,.recensione{padding:20px 0 80px}.vd-guscio{margin:0 12px;border-radius:28px;padding:5px}.vd-nucleo{border-radius:23px}}
+
+/* ---------- v6: carrello → ordine su WhatsApp ---------- */
+.agg{flex:none;width:34px;height:34px;margin-left:10px;border-radius:50%;border:0;cursor:pointer;display:grid;place-items:center;align-self:center;
+  color:var(--oro);background:rgba(214,178,110,.1);box-shadow:inset 0 0 0 1px var(--filo2);transition:transform .5s var(--molla),background .5s var(--molla),color .5s var(--molla)}
+.agg svg{width:16px;height:16px}
+.agg:hover{background:var(--zaff);color:#1a0d06;box-shadow:none}
+.agg:active{transform:scale(.9)}
+.agg.fatto{background:var(--zaff);color:#1a0d06;transform:scale(1.12)}
+.pi-pr .agg{margin-left:auto}
+.ff-pr{margin-top:auto;display:flex;align-items:center;justify-content:space-between}
+.ff-pr b{margin:0}
+.car-fisso{position:fixed;right:20px;bottom:88px;z-index:12;display:flex;align-items:center;gap:10px;padding:7px 20px 7px 7px;border:0;cursor:pointer;border-radius:99px;
+  background:var(--avorio);color:#1a1209;font:500 14px/1 var(--sans);letter-spacing:.04em;box-shadow:0 20px 50px -16px rgba(0,0,0,.8);
+  opacity:0;transform:translateY(16px) scale(.96);pointer-events:none;transition:opacity .6s var(--molla),transform .6s var(--molla)}
+.ha-ordine .car-fisso{opacity:1;transform:none;pointer-events:auto}
+.car-fisso i{position:relative;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:rgba(26,18,9,.08)}
+.car-fisso svg{width:20px;height:20px}
+.car-n{position:absolute;top:-4px;right:-4px;min-width:20px;height:20px;padding:0 5px;border-radius:99px;background:var(--zaff);color:#1a0d06;font:600 11px/20px var(--sans);font-style:normal;text-align:center}
+.car-fisso.salta{animation:salta .6s var(--molla)}
+@keyframes salta{40%{transform:scale(1.08)}}
+.car-velo{position:fixed;inset:0;z-index:30;background:rgba(8,6,5,.6);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .5s var(--molla)}
+.car{position:fixed;top:12px;right:12px;bottom:12px;z-index:31;width:min(440px,calc(100vw - 24px));border-radius:32px;overflow:auto;overscroll-behavior:contain;
+  background:linear-gradient(170deg,var(--carta2),#120d0a 70%);box-shadow:inset 0 0 0 1px var(--filo2),0 40px 90px -30px #000;
+  transform:translateX(calc(100% + 24px));transition:transform .7s var(--molla)}
+.car-aperto .car-velo{opacity:1;pointer-events:auto}
+.car-aperto .car{transform:none}
+.car-testa{display:flex;justify-content:space-between;align-items:flex-start;padding:26px 26px 10px}
+.car-testa h3{font-size:40px;margin-top:14px}
+.car-chiudi{width:44px;height:44px;border-radius:50%;border:0;cursor:pointer;color:var(--avorio);background:rgba(239,230,214,.06);display:grid;place-items:center}
+.car-chiudi svg{width:18px;height:18px}
+.car-corpo{padding:0 26px 30px}
+.car-vuoto{display:none;color:var(--fumo);font:italic 19px/1.5 var(--serif);padding:20px 0}
+.car.vuoto .car-vuoto{display:block}
+.car.vuoto .car-totale,.car.vuoto .car-form{display:none}
+.car-lista{list-style:none}
+.car-lista li{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--filo)}
+.car-lista li>div:first-child{flex:1;min-width:0}
+.car-lista b{display:block;font:500 19px/1.2 var(--serif)}
+.car-lista span{font-size:13px;color:var(--oro)}
+.car-q{display:flex;align-items:center;gap:6px}
+.car-q button{width:32px;height:32px;border-radius:50%;border:0;cursor:pointer;color:var(--avorio);background:rgba(239,230,214,.07);font-size:17px}
+.car-q em{font-style:normal;min-width:20px;text-align:center}
+.car-totale{display:flex;justify-content:space-between;align-items:baseline;padding:18px 0 22px}
+.car-totale span{font:500 11px/1 var(--sans);letter-spacing:.24em;text-transform:uppercase;color:var(--oro)}
+.car-totale b{font:500 30px/1 var(--serif)}
+.car-modo{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.car-modo label{cursor:pointer}
+.car-modo input{position:absolute;opacity:0}
+.car-modo span{display:block;text-align:center;padding:12px 8px;border-radius:16px;font-size:13px;color:var(--fumo);box-shadow:inset 0 0 0 1px var(--filo2);transition:all .4s var(--molla)}
+.car-modo input:checked+span{background:var(--oro);color:#1a1209;box-shadow:none}
+.car-modo input:focus-visible+span{outline:2px solid var(--zaff);outline-offset:2px}
+.car-campo{display:block;margin-bottom:10px}
+.car-campo span{display:block;font:500 10.5px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--fumo);margin-bottom:7px}
+.car-campo input,.car-campo textarea{width:100%;font:400 16px/1.4 var(--sans);color:var(--avorio);background:rgba(239,230,214,.04);border:0;border-radius:14px;
+  padding:12px 14px;box-shadow:inset 0 0 0 1px var(--filo2);outline:none;resize:vertical}
+.car-campo input:focus,.car-campo textarea:focus{box-shadow:inset 0 0 0 1px var(--oro)}
+.car-campo .errore{box-shadow:inset 0 0 0 1px var(--zaff-chiaro);background:rgba(214,104,46,.08)}
+.car.ritiro .car-ind{display:none}
+.car-paga{font-size:13px;color:var(--fumo);margin:6px 0 18px}
+.car-invia{width:100%;justify-content:space-between;border:0;cursor:pointer}
+@media (max-width:900px){
+  .car-fisso{right:14px;bottom:78px}
+  .car{top:auto;left:8px;right:8px;bottom:8px;width:auto;max-height:88vh;border-radius:28px;transform:translateY(calc(100% + 16px))}
+  .agg{width:32px;height:32px;margin-left:8px}
+}
