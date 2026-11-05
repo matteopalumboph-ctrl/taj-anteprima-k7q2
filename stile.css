@@ -214,7 +214,7 @@ body.giu .schede{top:16px}
 .wa-fisso:active{transform:scale(.97)}
 
 /* ---------- entrate allo scorrimento ---------- */
-.rivela{opacity:0;transform:translateY(50px);filter:blur(6px);transition:opacity 1.1s var(--molla),transform 1.1s var(--molla),filter 1.1s var(--molla);transition-delay:var(--d,0ms)}
+.rivela{opacity:0;transform:translateY(28px);filter:blur(4px);transition:opacity .5s var(--molla),transform .7s var(--molla),filter .5s var(--molla);transition-delay:var(--d,0ms)}
 .rivela.dentro{opacity:1;transform:none;filter:blur(0)}
 
 /* ---------- telefono ---------- */
@@ -305,7 +305,15 @@ html.en .te-n::after{content:" dishes"}
   .sz.grande .sz-foto{width:62vw;align-self:center}
 }
 
+.su-fisso{position:fixed;left:20px;bottom:20px;z-index:12;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;
+  color:var(--oro);background:rgba(18,13,10,.82);box-shadow:inset 0 0 0 1px var(--filo2);opacity:0;transform:translateY(12px);
+  transition:opacity .5s var(--molla),transform .5s var(--molla)}
+.su-fisso svg{width:20px;height:20px}
+body.lontano .su-fisso{opacity:1;transform:none}
+@media (max-width:900px){.binario{padding-bottom:90px}.su-fisso{left:14px;bottom:14px}}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
   .rivela{opacity:1;transform:none;filter:none}
 }
+
+html.en .gruppo h5 em{display:none}

@@ -34,7 +34,8 @@
       const giu = y > ultimo && y > 500 && !document.body.classList.contains("aperto");
       isola.classList.toggle("nascosta", giu);
       document.body.classList.toggle("giu", giu);
-      if (Math.abs(y - ultimo) > innerHeight * 0.6) recupera();   // salto lungo: niente riquadri vuoti
+      document.body.classList.toggle("lontano", y > innerHeight * 1.5);
+      if (Math.abs(y - ultimo) > innerHeight * 0.4) recupera();   // salto lungo: niente riquadri vuoti
       ultimo = y; attesa = false;
     });
   }, { passive: true });
