@@ -149,6 +149,7 @@ document.querySelectorAll(".yt").forEach((b) => b.addEventListener("click", () =
     car.querySelector(".car-tot2").textContent = euro(totale());
     document.body.classList.toggle("ha-ordine", n > 0);
     car.classList.toggle("vuoto", n === 0);
+    car.classList.toggle("con-fast", righe.some((r) => r.id.startsWith("f")));
     lista.innerHTML = righe.map((r, i) => `<li><div><b>${r.nome}</b><span>${euro(r.p * r.q)}</span></div>
       <div class="car-q"><button data-i="${i}" data-d="-1" aria-label="Meno">−</button><em>${r.q}</em><button data-i="${i}" data-d="1" aria-label="Più">+</button></div></li>`).join("");
   };
@@ -176,6 +177,7 @@ document.querySelectorAll(".yt").forEach((b) => b.addEventListener("click", () =
   const form = car.querySelector(".car-form");
   const modo = () => form.modo.value;
   form.addEventListener("change", () => car.classList.toggle("ritiro", modo() === "ritiro"));
+  const conFast = () => righe.some((r) => r.id.startsWith("f"));
   form.addEventListener("submit", (ev) => {
     ev.preventDefault();
     if (!righe.length) return;
@@ -191,6 +193,7 @@ document.querySelectorAll(".yt").forEach((b) => b.addEventListener("click", () =
         `${E ? "Name" : "Nome"}: ${nome}`]);
     if (modo() === "consegna") t.push(`${E ? "Address" : "Indirizzo"}: ${ind}`);
     if (form.orario.value.trim()) t.push(`${E ? "Time" : "Orario"}: ${form.orario.value.trim()}`);
+    if (conFast() && form.bibita.value.trim()) t.push(`${E ? "Drink and sauces" : "Bibita e salse"}: ${form.bibita.value.trim()}`);
     if (form.note.value.trim()) t.push(`${E ? "Notes" : "Note"}: ${form.note.value.trim()}`);
     t.push("", E ? "Payment on delivery" : "Pagamento alla consegna");
     location.href = `https://wa.me/${car.dataset.wa}?text=${encodeURIComponent(t.join("\n"))}`;   // apre WhatsApp anche dai browser interni di Instagram e Facebook

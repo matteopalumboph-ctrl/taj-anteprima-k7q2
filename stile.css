@@ -508,3 +508,17 @@ html.en .gruppo h5 em{display:none}
   .car{top:auto;left:8px;right:8px;bottom:8px;width:auto;max-height:88vh;border-radius:28px;transform:translateY(calc(100% + 16px))}
   .agg{width:32px;height:32px;margin-left:8px}
 }
+/* rifiniture GIANNI §10 */
+.car{font-variant-numeric:lining-nums}
+.agg{width:40px;height:40px}
+.agg svg{width:18px;height:18px}
+.car-bibita{display:none}.car.con-fast .car-bibita{display:block}
+.car-err{display:none;font:italic 400 15px/1.3 var(--serif);color:var(--zaff-chiaro);margin-top:6px}
+.car-campo .errore+.car-err{display:block}
+@media (max-width:900px){
+  .agg{width:44px;height:44px}
+  .ha-ordine .wa-fisso{opacity:0;pointer-events:none;transform:translateY(20px)}
+  .car-fisso{bottom:14px}
+  .ha-ordine .binario,.ha-ordine .ff-griglia{padding-bottom:20px}
+  body.ha-ordine{padding-bottom:70px}
+}
