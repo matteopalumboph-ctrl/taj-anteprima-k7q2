@@ -141,6 +141,8 @@ document.querySelectorAll(".yt").forEach((b) => b.addEventListener("click", () =
   const salva = () => { try { localStorage.setItem("taj-carrello", JSON.stringify(righe)); } catch (_) {} };
   const fisso = document.querySelector(".car-fisso"), lista = car.querySelector(".car-lista");
   const totale = () => righe.reduce((t, r) => t + r.p * r.q, 0);
+  const MINIMO = 15;   // ordine minimo per la consegna in Brescia città
+  const form = car.querySelector(".car-form");
 
   const disegna = () => {
     const n = righe.reduce((t, r) => t + r.q, 0);
@@ -150,6 +152,7 @@ document.querySelectorAll(".yt").forEach((b) => b.addEventListener("click", () =
     document.body.classList.toggle("ha-ordine", n > 0);
     car.classList.toggle("vuoto", n === 0);
     car.classList.toggle("con-fast", righe.some((r) => r.id.startsWith("f")));
+    car.classList.toggle("sotto-min", n > 0 && form.modo.value === "consegna" && totale() < MINIMO);
     lista.innerHTML = righe.map((r, i) => `<li><div><b>${r.nome}</b><span>${euro(r.p * r.q)}</span></div>
       <div class="car-q"><button data-i="${i}" data-d="-1" aria-label="Meno">−</button><em>${r.q}</em><button data-i="${i}" data-d="1" aria-label="Più">+</button></div></li>`).join("");
   };
@@ -174,9 +177,8 @@ document.querySelectorAll(".yt").forEach((b) => b.addEventListener("click", () =
   document.querySelector(".car-velo").addEventListener("click", () => apri(false));
   addEventListener("keydown", (ev) => { if (ev.key === "Escape") apri(false); });
 
-  const form = car.querySelector(".car-form");
   const modo = () => form.modo.value;
-  form.addEventListener("change", () => car.classList.toggle("ritiro", modo() === "ritiro"));
+  form.addEventListener("change", () => { car.classList.toggle("ritiro", modo() === "ritiro"); disegna(); });
   const conFast = () => righe.some((r) => r.id.startsWith("f"));
   form.addEventListener("submit", (ev) => {
     ev.preventDefault();
@@ -185,6 +187,7 @@ document.querySelectorAll(".yt").forEach((b) => b.addEventListener("click", () =
     form.nome.classList.toggle("errore", !nome);
     form.indirizzo.classList.toggle("errore", modo() === "consegna" && !ind);
     if (!nome || (modo() === "consegna" && !ind)) return;
+    if (modo() === "consegna" && totale() < MINIMO) { car.querySelector(".car-min").scrollIntoView({ block: "center", behavior: "smooth" }); return; }
     const E = en();
     const t = [E ? "New order from the website · Taj Mahal" : "Nuovo ordine dal sito · Taj Mahal", ""]
       .concat(righe.map((r) => `${r.q} × ${r.nome} · ${euro(r.p * r.q)}`))
@@ -195,7 +198,7 @@ document.querySelectorAll(".yt").forEach((b) => b.addEventListener("click", () =
     if (form.orario.value.trim()) t.push(`${E ? "Time" : "Orario"}: ${form.orario.value.trim()}`);
     if (conFast() && form.bibita.value.trim()) t.push(`${E ? "Drink and sauces" : "Bibita e salse"}: ${form.bibita.value.trim()}`);
     if (form.note.value.trim()) t.push(`${E ? "Notes" : "Note"}: ${form.note.value.trim()}`);
-    t.push("", E ? "Payment on delivery" : "Pagamento alla consegna");
+    t.push("", E ? "Cash payment on delivery" : "Pagamento in contanti alla consegna");
     location.href = `https://wa.me/${car.dataset.wa}?text=${encodeURIComponent(t.join("\n"))}`;   // apre WhatsApp anche dai browser interni di Instagram e Facebook
   });
   disegna();

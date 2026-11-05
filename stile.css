@@ -502,6 +502,9 @@ html.en .gruppo h5 em{display:none}
 .car-campo .errore{box-shadow:inset 0 0 0 1px var(--zaff-chiaro);background:rgba(214,104,46,.08)}
 .car.ritiro .car-ind{display:none}
 .car-paga{font-size:13px;color:var(--fumo);margin:6px 0 18px}
+.car-min{display:none;font:italic 400 15px/1.35 var(--serif);color:var(--zaff-chiaro);margin:-4px 0 14px}
+.car.sotto-min .car-min{display:block}
+.car.sotto-min .car-invia{opacity:.45}
 .car-invia{width:100%;justify-content:space-between;border:0;cursor:pointer}
 @media (max-width:900px){
   .car-fisso{right:14px;bottom:78px}
