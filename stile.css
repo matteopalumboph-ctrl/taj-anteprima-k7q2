@@ -388,3 +388,45 @@ html.en .gruppo h5 em{display:none}
 }
 .cz-voce .it{font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--fumo);margin-top:6px;line-height:1.6}
 .cz-voce .en{font:italic 400 15.5px/1.4 var(--serif);color:var(--fumo2);margin-top:3px}
+
+/* ---------- v4 (5/11): sito a pagine, Glovo, Halal nel piede ---------- */
+.isola-link a.attivo{color:var(--avorio);background:rgba(214,178,110,.12);box-shadow:inset 0 0 0 1px var(--filo)}
+.velo a.attivo{color:var(--oro)}
+.sola .sz{border-top:0;padding-top:140px}
+.sola h1{font-size:clamp(46px,6vw,88px);margin:10px 0 12px}
+.pagina.cucina{padding-top:170px}
+.cucina h1.scr{font-size:clamp(76px,10vw,140px);color:var(--oro);margin:20px 0 10px;line-height:.9}
+.mn-altri{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.benvenuti{max-width:820px;margin:0 auto;padding:130px 24px 40px;text-align:center;display:flex;flex-direction:column;align-items:center}
+.benvenuti h2.scr{font-size:clamp(70px,9vw,124px);color:var(--oro);margin:0 0 18px;line-height:.9}
+.benvenuti p{font:400 clamp(21px,2vw,27px)/1.5 var(--serif);margin-bottom:30px}
+.orari{max-width:1180px;margin:0 auto;padding:0 5vw 20px}
+.orari .cu-dati{margin-top:0}
+.glovo{display:inline-flex;align-items:center;gap:12px;align-self:flex-start;padding:10px 22px 10px 20px;border-radius:99px;background:#ffc244;
+  color:#00553f;font:500 13px/1 var(--sans);letter-spacing:.06em;box-shadow:0 18px 40px -20px rgba(255,194,68,.6);transition:transform .6s var(--molla)}
+.glovo img{height:24px;width:auto}
+.glovo:hover{transform:translateY(-2px)}
+.glovo:active{transform:scale(.98)}
+.delivery{padding:20px 4vw 120px}
+.dl-guscio{max-width:1320px;margin:0 auto;padding:8px;border-radius:44px;background:rgba(239,230,214,.03);box-shadow:inset 0 0 0 1px var(--filo)}
+.dl-nucleo{border-radius:36px;overflow:hidden;display:grid;grid-template-columns:.9fr 1.1fr;background:linear-gradient(160deg,var(--carta2),#120d0a 70%);
+  box-shadow:inset 0 1px 0 rgba(241,223,174,.08)}
+.dl-foto img{width:100%;height:100%;object-fit:cover;min-height:360px}
+.dl-testo{padding:60px 56px;display:flex;flex-direction:column;justify-content:center}
+.dl-testo h2{font-size:clamp(40px,4.6vw,66px)}
+.dl-testo p{color:var(--fumo);max-width:460px;margin-bottom:30px}
+.pd-marchi{display:flex;justify-content:center;align-items:center;gap:26px;margin:4px 0 26px}
+.pd-halal{width:66px;transform:rotate(-8deg);opacity:.85}
+.pd-marchi .glovo{align-self:center;padding:8px 18px 8px 16px;font-size:12px}
+.pd-marchi .glovo img{height:20px}
+@media (max-width:1180px) and (min-width:901px){.isola-link a{padding:12px 9px;font-size:12px}}
+@media (max-width:900px){
+  .sola .sz{padding-top:110px}
+  .pagina.cucina{padding-top:120px}
+  .benvenuti{padding:90px 22px 20px}
+  .orari{padding:0 20px 10px}
+  .delivery{padding:10px 12px 90px}
+  .dl-nucleo{grid-template-columns:1fr}
+  .dl-foto img{min-height:0;aspect-ratio:16/11}
+  .dl-testo{padding:34px 26px 38px}
+}
