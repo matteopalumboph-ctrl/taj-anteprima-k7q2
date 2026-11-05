@@ -129,6 +129,24 @@ document.querySelectorAll(".yt").forEach((b) => b.addEventListener("click", () =
   b.replaceWith(f);
 }));
 
+// foto dei piatti: tocco sulla miniatura → foto grande; tocco o Esc per chiudere
+(() => {
+  const vf = document.querySelectorAll(".vf");
+  if (!vf.length) return;
+  const box = document.createElement("div");
+  box.className = "foto-grande"; box.setAttribute("role", "dialog"); box.setAttribute("aria-modal", "true");
+  box.innerHTML = '<figure><img alt=""><figcaption></figcaption></figure>';
+  document.body.append(box);
+  const img = box.querySelector("img"), cap = box.querySelector("figcaption");
+  const chiudi = () => box.classList.remove("su");
+  vf.forEach((b) => b.addEventListener("click", () => {
+    img.src = `img/piatti_tutti/${b.dataset.n}.webp`; img.alt = b.dataset.nome; cap.textContent = b.dataset.nome;
+    box.classList.add("su");
+  }));
+  box.addEventListener("click", chiudi);
+  addEventListener("keydown", (ev) => { if (ev.key === "Escape") chiudi(); });
+})();
+
 // carrello: si sceglie dal menù, l'ordine parte già scritto su WhatsApp, pagamento alla consegna
 (() => {
   const car = document.querySelector(".car");

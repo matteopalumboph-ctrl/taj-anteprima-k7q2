@@ -162,6 +162,16 @@ body.giu .schede{top:16px}
 .voce{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid rgba(214,178,110,.07)}
 .vn{font:500 10.5px/2.4 var(--sans);letter-spacing:.08em;color:var(--zaff);width:26px;flex:none}
 .vt{flex:1;min-width:0}
+.vf{flex:none;width:68px;height:68px;margin:-4px 0 0;padding:0;border:0;background:none;border-radius:50%;cursor:zoom-in;transition:transform .5s cubic-bezier(.32,.72,0,1)}
+.vf img{width:100%;height:100%;display:block;filter:drop-shadow(0 6px 14px rgba(0,0,0,.45))}
+.vf:hover{transform:scale(1.08) rotate(-4deg)}
+.foto-grande{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:24px;background:rgba(8,6,4,.86);backdrop-filter:blur(14px);opacity:0;pointer-events:none;transition:opacity .45s cubic-bezier(.32,.72,0,1)}
+.foto-grande.su{opacity:1;pointer-events:auto}
+.foto-grande figure{margin:0;text-align:center;transform:scale(.94);transition:transform .6s cubic-bezier(.32,.72,0,1)}
+.foto-grande.su figure{transform:none}
+.foto-grande img{width:min(78vw,72vh,620px);height:auto;filter:drop-shadow(0 30px 60px rgba(0,0,0,.6))}
+.foto-grande figcaption{font:italic 400 24px/1.2 var(--serif);color:var(--oro);margin-top:14px}
+@media (max-width:700px){.vf{width:56px;height:56px}.voce{gap:12px}}
 .vr{display:flex;align-items:baseline;gap:10px}
 .vr h4{font-size:23px;font-weight:500;line-height:1.15}
 .vr h4 sup{font:500 9.5px/1 var(--sans);color:var(--zaff);margin-left:4px;letter-spacing:.04em;vertical-align:super}
