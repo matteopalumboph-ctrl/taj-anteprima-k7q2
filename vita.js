@@ -119,3 +119,12 @@
     requestAnimationFrame(passo);
   }
 })();
+
+// recensione YouTube: il riquadro di YouTube si carica solo al clic (niente cookie prima)
+document.querySelectorAll(".yt").forEach((b) => b.addEventListener("click", () => {
+  const f = document.createElement("iframe");
+  f.src = `https://www.youtube-nocookie.com/embed/${b.dataset.id}?autoplay=1&rel=0`;
+  f.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen";
+  f.allowFullscreen = true; f.title = "Recensione Taj Mahal Brescia";
+  b.replaceWith(f);
+}));
