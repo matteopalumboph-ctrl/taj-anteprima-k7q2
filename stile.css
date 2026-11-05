@@ -155,6 +155,8 @@ body.giu .schede{top:16px}
 .sz-corpo ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;column-gap:64px}
 .sz-corpo.gruppi{display:grid;grid-template-columns:1fr 1fr;column-gap:64px;row-gap:30px}
 .sz-corpo.gruppi ul{grid-template-columns:1fr}
+.gruppo.largo{grid-column:1/-1}
+.sz-corpo.gruppi .gruppo.largo ul{grid-template-columns:1fr 1fr;column-gap:64px}
 .gruppo h5{font:500 11px/1 var(--sans);letter-spacing:.24em;text-transform:uppercase;color:var(--oro);padding-bottom:12px;margin-bottom:6px;border-bottom:1px solid var(--filo)}
 .gruppo h5 em{font:italic 400 16px/1 var(--serif);letter-spacing:0;text-transform:none;color:var(--fumo2);margin-left:10px}
 .voce{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid rgba(214,178,110,.07)}
@@ -225,7 +227,6 @@ body.giu .schede{top:16px}
   .hamb{order:3}
   .eroe{padding-top:110px}
   .eroe-taj{margin-top:-2vh}
-  .eroe-timbro{top:auto;bottom:40vh;right:16px;width:74px}
   .cucina{grid-template-columns:1fr;padding:110px 20px 90px;gap:60px}
   .cu-dati{grid-template-columns:1fr 1fr 1fr;gap:8px}
   .cu-dati div{padding:14px 12px;border-radius:18px}
@@ -240,7 +241,7 @@ body.giu .schede{top:16px}
   .sz{padding:54px 0}
   .sz-testa{gap:20px;margin-bottom:26px}
   .sz-foto{width:96px}
-  .sz-corpo ul,.sz-corpo.gruppi{grid-template-columns:1fr}
+  .sz-corpo ul,.sz-corpo.gruppi,.sz-corpo.gruppi .gruppo.largo ul{grid-template-columns:1fr}
   .vr h4{font-size:21px}
   .allergeni{padding:40px 20px 0}
   .prenota{padding:80px 12px 100px}
@@ -250,6 +251,60 @@ body.giu .schede{top:16px}
   .pr-mappa{min-height:340px}
   .wa-fisso{right:14px;bottom:14px}
 }
+
+/* ---------- v2 (GIANNI §2) ---------- */
+.eroe-dove{display:inline-flex;align-items:center;gap:10px;margin-top:16px;padding:6px 16px 6px 6px;border-radius:99px;font:450 13.5px/1.2 var(--sans);
+  letter-spacing:.04em;color:var(--avorio);background:rgba(239,230,214,.04);box-shadow:inset 0 0 0 1px var(--filo);transition:background .5s var(--molla)}
+.eroe-dove:hover{background:rgba(239,230,214,.08)}
+.eroe-dove i{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:rgba(214,178,110,.13);color:var(--oro);flex:none}
+.eroe-dove svg{width:14px;height:14px}
+.eroe-cta{margin-top:28px}
+.brace{position:absolute;inset:-20% 0 0 0;width:100%;height:120%;pointer-events:none;mix-blend-mode:screen}
+
+.lingua{display:flex;gap:2px;border:0;cursor:pointer;padding:4px;border-radius:99px;background:rgba(239,230,214,.05);font:500 11px/1 var(--sans);letter-spacing:.12em}
+.lingua span{padding:9px 9px;border-radius:99px;color:var(--fumo2);transition:all .5s var(--molla)}
+html:not(.en) .lingua .l-it,html.en .lingua .l-en{background:var(--oro);color:#1a1209}
+
+.indice{padding:40px 0 140px}
+.tessere{max-width:1320px;margin:0 auto;padding:0 5vw;display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+.tessera{display:flex;flex-direction:column;align-items:center;text-align:center;padding:22px 14px 20px;border-radius:30px;
+  background:linear-gradient(180deg,var(--carta2),var(--carta));box-shadow:inset 0 0 0 1px var(--filo),inset 0 1px 0 rgba(241,223,174,.07);
+  transition:transform .8s var(--molla),box-shadow .8s var(--molla)}
+.tessera:hover{transform:translateY(-6px);box-shadow:inset 0 0 0 1px var(--filo2),0 30px 60px -30px #000}
+.te-foto{width:78%;display:block;transition:transform 1s var(--molla)}
+.tessera:hover .te-foto{transform:rotate(-8deg) scale(1.05)}
+.te-foto img{filter:drop-shadow(0 24px 30px rgba(0,0,0,.6))}
+.te-nome{font:400 22px/1.1 var(--serif);margin-top:16px}
+.te-n{font:500 10px/1 var(--sans);letter-spacing:.2em;color:var(--zaff);margin-top:8px}
+.te-n::after{content:" piatti"}
+html.en .te-n::after{content:" dishes"}
+.pillole{max-width:1320px;margin:26px auto 0;padding:0 5vw;display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.pillole a{font:450 13px/1 var(--sans);letter-spacing:.06em;padding:12px 18px;border-radius:99px;color:var(--fumo);box-shadow:inset 0 0 0 1px var(--filo);transition:all .5s var(--molla)}
+.pillole a:hover{color:var(--avorio);background:rgba(239,230,214,.05)}
+.in-cta{display:flex;justify-content:center;margin-top:44px}
+
+.pag-menu .menu{padding-top:0}
+.mn-testa-pag{padding-top:150px}
+.mn-testa-pag h1{font-size:clamp(44px,6.4vw,92px);margin:22px 0 18px}
+.mn-testa-pag h1 em{color:var(--oro)}
+.indietro{display:inline-block;font:450 13px/1 var(--sans);letter-spacing:.1em;color:var(--fumo);margin-right:14px}
+.sz.grande .sz-testa{gap:56px}
+.sz.grande .sz-foto{width:280px}
+.sz.grande h3{font-size:clamp(46px,5.6vw,76px)}
+@media (max-width:900px){
+  .eroe-timbro{top:96px;bottom:auto;left:14px;right:auto;width:62px}
+  .eroe-dove{font-size:12.5px}
+  .lingua{margin-left:auto}
+  .hamb{margin-left:4px}
+  .tessere{grid-template-columns:1fr 1fr;padding:0 20px;gap:12px}
+  .tessera{padding:18px 10px 16px;border-radius:24px}
+  .te-nome{font-size:19px}
+  .pillole{padding:0 20px}
+  .mn-testa-pag{padding-top:120px}
+  .sz.grande .sz-testa{flex-direction:column;align-items:flex-start;gap:18px}
+  .sz.grande .sz-foto{width:62vw;align-self:center}
+}
+
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
   .rivela{opacity:1;transform:none;filter:none}
