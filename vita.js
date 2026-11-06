@@ -209,7 +209,7 @@ document.querySelectorAll(".yt").forEach((b) => b.addEventListener("click", () =
     if (form.orario.value.trim()) t.push(`${E ? "Pick up time" : "Orario di ritiro"}: ${form.orario.value.trim()}`);
     if (conFast() && form.bibita.value.trim()) t.push(`${E ? "Drink and sauces" : "Bibita e salse"}: ${form.bibita.value.trim()}`);
     if (form.note.value.trim()) t.push(`${E ? "Notes" : "Note"}: ${form.note.value.trim()}`);
-    t.push("", E ? "Payment when I pick up" : "Pago al ritiro");
+    t.push("", E ? "Payment when I pick up (cash or card)" : "Pago al ritiro (contanti o carta)");
     location.href = `https://wa.me/${car.dataset.wa}?text=${encodeURIComponent(t.join("\n"))}`;   // apre WhatsApp anche dai browser interni di Instagram e Facebook
   });
   disegna();
