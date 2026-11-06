@@ -535,3 +535,6 @@ html.en .gruppo h5 em{display:none}
   .ha-ordine .binario,.ha-ordine .ff-griglia{padding-bottom:20px}
   body.ha-ordine{padding-bottom:70px}
 }
+
+/* carrello: Glovo per il domicilio, staccato dal pulsante WhatsApp */
+.car-glovo { margin: .2rem 0 1.4rem; }
