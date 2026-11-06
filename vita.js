@@ -147,7 +147,7 @@ document.querySelectorAll(".yt").forEach((b) => b.addEventListener("click", () =
   addEventListener("keydown", (ev) => { if (ev.key === "Escape") chiudi(); });
 })();
 
-// carrello: si sceglie dal menù, l'ordine parte già scritto su WhatsApp, pagamento alla consegna
+// carrello: si sceglie dal menù, l'ordine parte già scritto su WhatsApp, solo ritiro al ristorante (a domicilio solo Glovo)
 (() => {
   const car = document.querySelector(".car");
   if (!car) return;
@@ -159,7 +159,6 @@ document.querySelectorAll(".yt").forEach((b) => b.addEventListener("click", () =
   const salva = () => { try { localStorage.setItem("taj-carrello", JSON.stringify(righe)); } catch (_) {} };
   const fisso = document.querySelector(".car-fisso"), lista = car.querySelector(".car-lista");
   const totale = () => righe.reduce((t, r) => t + r.p * r.q, 0);
-  const MINIMO = 15;   // ordine minimo per la consegna in Brescia città
   const form = car.querySelector(".car-form");
 
   const disegna = () => {
@@ -170,7 +169,6 @@ document.querySelectorAll(".yt").forEach((b) => b.addEventListener("click", () =
     document.body.classList.toggle("ha-ordine", n > 0);
     car.classList.toggle("vuoto", n === 0);
     car.classList.toggle("con-fast", righe.some((r) => r.id.startsWith("f")));
-    car.classList.toggle("sotto-min", n > 0 && form.modo.value === "consegna" && totale() < MINIMO);
     lista.innerHTML = righe.map((r, i) => `<li><div><b>${r.nome}</b><span>${euro(r.p * r.q)}</span></div>
       <div class="car-q"><button data-i="${i}" data-d="-1" aria-label="Meno">−</button><em>${r.q}</em><button data-i="${i}" data-d="1" aria-label="Più">+</button></div></li>`).join("");
   };
@@ -195,28 +193,23 @@ document.querySelectorAll(".yt").forEach((b) => b.addEventListener("click", () =
   document.querySelector(".car-velo").addEventListener("click", () => apri(false));
   addEventListener("keydown", (ev) => { if (ev.key === "Escape") apri(false); });
 
-  const modo = () => form.modo.value;
-  form.addEventListener("change", () => { car.classList.toggle("ritiro", modo() === "ritiro"); disegna(); });
   const conFast = () => righe.some((r) => r.id.startsWith("f"));
   form.addEventListener("submit", (ev) => {
     ev.preventDefault();
     if (!righe.length) return;
-    const nome = form.nome.value.trim(), ind = form.indirizzo.value.trim();
+    const nome = form.nome.value.trim();
     form.nome.classList.toggle("errore", !nome);
-    form.indirizzo.classList.toggle("errore", modo() === "consegna" && !ind);
-    if (!nome || (modo() === "consegna" && !ind)) return;
-    if (modo() === "consegna" && totale() < MINIMO) { car.querySelector(".car-min").scrollIntoView({ block: "center", behavior: "smooth" }); return; }
+    if (!nome) return;
     const E = en();
     const t = [E ? "New order from the website · Taj Mahal" : "Nuovo ordine dal sito · Taj Mahal", ""]
       .concat(righe.map((r) => `${r.q} × ${r.nome} · ${euro(r.p * r.q)}`))
       .concat(["", `${E ? "Total" : "Totale"}: ${euro(totale())}`, "",
-        modo() === "consegna" ? (E ? "Home delivery" : "Consegna a domicilio") : (E ? "Pick up at the restaurant" : "Ritiro al ristorante"),
+        E ? "Pick up at the restaurant" : "Ritiro al ristorante",
         `${E ? "Name" : "Nome"}: ${nome}`]);
-    if (modo() === "consegna") t.push(`${E ? "Address" : "Indirizzo"}: ${ind}`);
-    if (form.orario.value.trim()) t.push(`${E ? "Time" : "Orario"}: ${form.orario.value.trim()}`);
+    if (form.orario.value.trim()) t.push(`${E ? "Pick up time" : "Orario di ritiro"}: ${form.orario.value.trim()}`);
     if (conFast() && form.bibita.value.trim()) t.push(`${E ? "Drink and sauces" : "Bibita e salse"}: ${form.bibita.value.trim()}`);
     if (form.note.value.trim()) t.push(`${E ? "Notes" : "Note"}: ${form.note.value.trim()}`);
-    t.push("", E ? "Cash payment on delivery" : "Pagamento in contanti alla consegna");
+    t.push("", E ? "Payment when I pick up" : "Pago al ritiro");
     location.href = `https://wa.me/${car.dataset.wa}?text=${encodeURIComponent(t.join("\n"))}`;   // apre WhatsApp anche dai browser interni di Instagram e Facebook
   });
   disegna();
