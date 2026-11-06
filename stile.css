@@ -538,3 +538,4 @@ html.en .gruppo h5 em{display:none}
 
 /* carrello: Glovo per il domicilio, staccato dal pulsante WhatsApp */
 .car-glovo { margin: .2rem 0 1.4rem; }
+.car-lista b { font-variant-numeric: lining-nums; font-feature-settings: "lnum" 1; }
