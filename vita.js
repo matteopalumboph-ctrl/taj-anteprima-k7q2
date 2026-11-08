@@ -47,7 +47,7 @@
       schede.forEach((a) => {
         const on = a.dataset.sz === v.target.id.slice(2);
         a.classList.toggle("attiva", on);
-        if (on) a.parentElement.scrollTo({ left: a.offsetLeft - a.parentElement.clientWidth / 2 + a.clientWidth / 2, behavior: "smooth" });
+        if (on) { const p = a.parentElement, ra = a.getBoundingClientRect(), rp = p.getBoundingClientRect(); p.scrollBy({ left: ra.left + ra.width / 2 - (rp.left + rp.width / 2), behavior: "smooth" }); }   // vale anche da destra a sinistra (urdu)
       });
     }), { rootMargin: "-40% 0px -55% 0px" });
     document.querySelectorAll(".sz").forEach((s) => sezioni.observe(s));
@@ -61,17 +61,33 @@
   });
   document.querySelectorAll(".velo a").forEach((a) => a.addEventListener("click", chiudi));
 
-  // IT / EN: ogni testo tradotto porta l'inglese in data-en
+  // IT / EN / اردو: ogni testo tradotto porta l'inglese in data-en e l'urdu in data-ur (8/11)
   const tradotti = [...document.querySelectorAll("[data-en]")];
   tradotti.forEach((el) => { el.dataset.it = el.innerHTML; });
   const lingua = (l) => {
     html.lang = l;
     html.classList.toggle("en", l === "en");
-    tradotti.forEach((el) => { el.innerHTML = l === "en" ? el.dataset.en : el.dataset.it; });
+    html.classList.toggle("ur", l === "ur");
+    tradotti.forEach((el) => {
+      const ur = l === "ur" && el.dataset.ur;
+      el.innerHTML = l === "en" ? el.dataset.en : l === "ur" ? (el.dataset.ur || el.dataset.it) : el.dataset.it;
+      if (ur) el.setAttribute("dir", "rtl"); else el.removeAttribute("dir");
+      el.classList.toggle("in-ur", !!ur);
+    });
+    // urdu: i blocchi che restano tutti in urdu vanno a destra (le righe dei piatti con nomi latini no)
+    document.querySelectorAll(".ur-dx").forEach((p) => p.classList.remove("ur-dx"));
+    if (l === "ur") document.querySelectorAll(".in-ur").forEach((el) => {
+      const p = el.parentElement; if (!p || p.closest(".lingua, nav")) return;
+      const lat = (p.textContent.match(/[A-Za-zÀ-ÿ]/g) || []).length;
+      const urd = (p.textContent.match(/[\u0600-\u06FF]/g) || []).length;
+      if (urd > 0 && lat <= urd * 0.25) p.classList.add("ur-dx");
+    });
+    document.querySelectorAll(".lingua button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.l === l)));
     memoria.set("taj-lingua", l);
   };
-  document.querySelector(".lingua").addEventListener("click", () => lingua(html.lang === "en" ? "it" : "en"));
-  if (memoria.get("taj-lingua") === "en") lingua("en");
+  document.querySelectorAll(".lingua button").forEach((b) => b.addEventListener("click", () => lingua(b.dataset.l)));
+  const salvata = memoria.get("taj-lingua");
+  if (salvata === "en" || salvata === "ur") lingua(salvata);
 
   // brace del tandoor: scintille zafferano che salgono dal Taj inciso, lente, solo quando l'eroe si vede
   const tela = document.querySelector(".brace");
@@ -153,6 +169,7 @@ document.querySelectorAll(".yt").forEach((b) => b.addEventListener("click", () =
   if (!car) return;
   const html = document.documentElement;
   const en = () => html.lang === "en";
+  const ur = () => html.lang === "ur";
   const euro = (x) => x.toFixed(2).replace(".", ",") + " €";
   let righe = [];
   try { righe = JSON.parse(localStorage.getItem("taj-carrello") || "[]"); } catch (_) { righe = []; }
@@ -200,17 +217,34 @@ document.querySelectorAll(".yt").forEach((b) => b.addEventListener("click", () =
     const nome = form.nome.value.trim();
     form.nome.classList.toggle("errore", !nome);
     if (!nome) return;
-    const E = en();
-    const t = [E ? "New order from the website · Taj Mahal" : "Nuovo ordine dal sito · Taj Mahal", ""]
+    const L = ur() ? "ur" : en() ? "en" : "it";
+    const W = {
+      it: ["Nuovo ordine dal sito · Taj Mahal", "Totale", "Ritiro al ristorante", "Nome", "Orario di ritiro", "Bibita e salse", "Note", "Pago al ritiro (contanti o carta)"],
+      en: ["New order from the website · Taj Mahal", "Total", "Pick up at the restaurant", "Name", "Pick up time", "Drink and sauces", "Notes", "Payment when I pick up (cash or card)"],
+      ur: ["ویب سائٹ سے نیا آرڈر · Taj Mahal", "کل", "ریسٹورنٹ سے وصولی", "نام", "وصولی کا وقت", "مشروب اور ساسز", "نوٹس", "ادائیگی وصولی پر (نقد یا کارڈ)"],
+    }[L];
+    const t = [W[0], ""]
       .concat(righe.map((r) => `${r.q} × ${r.nome} · ${euro(r.p * r.q)}`))
-      .concat(["", `${E ? "Total" : "Totale"}: ${euro(totale())}`, "",
-        E ? "Pick up at the restaurant" : "Ritiro al ristorante",
-        `${E ? "Name" : "Nome"}: ${nome}`]);
-    if (form.orario.value.trim()) t.push(`${E ? "Pick up time" : "Orario di ritiro"}: ${form.orario.value.trim()}`);
-    if (conFast() && form.bibita.value.trim()) t.push(`${E ? "Drink and sauces" : "Bibita e salse"}: ${form.bibita.value.trim()}`);
-    if (form.note.value.trim()) t.push(`${E ? "Notes" : "Note"}: ${form.note.value.trim()}`);
-    t.push("", E ? "Payment when I pick up (cash or card)" : "Pago al ritiro (contanti o carta)");
+      .concat(["", `${W[1]}: ${euro(totale())}`, "", W[2], `${W[3]}: ${nome}`]);
+    if (form.orario.value.trim()) t.push(`${W[4]}: ${form.orario.value.trim()}`);
+    if (conFast() && form.bibita.value.trim()) t.push(`${W[5]}: ${form.bibita.value.trim()}`);
+    if (form.note.value.trim()) t.push(`${W[6]}: ${form.note.value.trim()}`);
+    t.push("", W[7]);
     location.href = `https://wa.me/${car.dataset.wa}?text=${encodeURIComponent(t.join("\n"))}`;   // apre WhatsApp anche dai browser interni di Instagram e Facebook
   });
   disegna();
+})();
+
+// bottoni fissi in basso: spariscono quando si scorre in giù (non coprono piatti e «+»), tornano appena si risale
+(() => {
+  let y = scrollY, ok = false, ferma;
+  addEventListener("scroll", () => {
+    clearTimeout(ferma); ferma = setTimeout(() => document.body.classList.remove("scende"), 900);   // fermo = tornano
+    if (ok) return; ok = true;
+    requestAnimationFrame(() => {
+      const n = scrollY, giu = n > y + 4 && n > 300, su = n < y - 4;
+      if (giu) document.body.classList.add("scende"); else if (su || n <= 300) document.body.classList.remove("scende");
+      y = n; ok = false;
+    });
+  }, { passive: true });
 })();

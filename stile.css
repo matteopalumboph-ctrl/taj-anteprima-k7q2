@@ -4,6 +4,7 @@
 @font-face{font-family:"Jost";src:url(fonts/jost.ttf);font-weight:100 900;font-display:swap}
 @font-face{font-family:"Ephesis";src:url(fonts/ephesis.ttf);font-display:swap}
 @font-face{font-family:"Amiri";src:url(fonts/amiri.ttf);font-display:swap}
+@font-face{font-family:"Nastaliq";src:url(fonts/nastaliq.woff2) format("woff2");font-weight:400 700;font-display:swap;unicode-range:U+0600-06FF,U+0750-077F,U+FB50-FDFF,U+FE70-FEFC,U+200C-200F}
 
 :root{
   --nero:#0f0c0a; --carta:#16110d; --carta2:#1d1611; --filo:rgba(214,178,110,.16); --filo2:rgba(214,178,110,.30);
@@ -272,8 +273,9 @@ body.giu .schede{top:16px}
 .brace{position:absolute;inset:-20% 0 0 0;width:100%;height:120%;pointer-events:none;mix-blend-mode:screen}
 
 .lingua{display:flex;gap:2px;border:0;cursor:pointer;padding:4px;border-radius:99px;background:rgba(239,230,214,.05);font:500 11px/1 var(--sans);letter-spacing:.12em}
-.lingua span{padding:9px 9px;border-radius:99px;color:var(--fumo2);transition:all .5s var(--molla)}
-html:not(.en) .lingua .l-it,html.en .lingua .l-en{background:var(--oro);color:#1a1209}
+.lingua button{border:0;background:none;font:inherit;letter-spacing:inherit;cursor:pointer;padding:9px 9px;border-radius:99px;color:var(--fumo2);transition:all .5s var(--molla)}
+.lingua .l-ur{font:400 13px/1 "Nastaliq",var(--sans);letter-spacing:0;padding:6px 10px 10px}
+html:not(.en):not(.ur) .lingua .l-it,html.en .lingua .l-en,html.ur .lingua .l-ur{background:var(--oro);color:#1a1209}
 
 .indice{padding:40px 0 140px}
 .tessere{max-width:1320px;margin:0 auto;padding:0 5vw;display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
@@ -539,3 +541,35 @@ html.en .gruppo h5 em{display:none}
 /* carrello: Glovo per il domicilio, staccato dal pulsante WhatsApp */
 .car-glovo { margin: .2rem 0 1.4rem; }
 .car-lista b { font-variant-numeric: lining-nums; font-feature-settings: "lnum" 1; }
+
+/* ---------- urdu (8/11): testi in nastaliq da destra a sinistra, impaginazione invariata ---------- */
+.in-ur,p.ur{font-family:"Nastaliq",var(--sans)!important;letter-spacing:0!important;text-transform:none!important;font-style:normal!important;word-spacing:.05em}
+.in-ur em{font-style:normal}
+h1.in-ur,h2.in-ur,h3.in-ur,h4.in-ur,h5 .in-ur{line-height:1.75!important;font-size:.82em}
+p.in-ur,span.in-ur,a.in-ur,dt.in-ur{line-height:2.05}
+p.ur{display:none;font-size:13.5px;line-height:2;color:var(--fumo);margin-top:4px;text-align:right}
+html.ur p.ur{display:block}
+html.ur p.en{display:none}
+html.ur .gruppo h5 em{display:none}
+html.ur .te-n::after{content:" کھانے";font-family:"Nastaliq",var(--sans)}
+
+/* urdu §47: blocchi in urdu a destra, carrello specchiato, menù a tendina a destra */
+html.ur .ur-dx{text-align:right}
+html.ur .velo.ur-dx{align-items:flex-end}
+html.ur .car-testa{flex-direction:row-reverse}
+html.ur .car-testa > div{text-align:right}
+/* bottoni fissi: via mentre si scorre in giù, tornano risalendo */
+.wa-fisso,.car-fisso{transition:transform .5s var(--molla, cubic-bezier(.32,.72,0,1)),opacity .35s}
+body.scende .wa-fisso{transform:translateY(140%);opacity:0;pointer-events:none}
+body.scende.ha-ordine .car-fisso{transform:translateY(140%);opacity:0;pointer-events:none}
+html.ur .schede>div{direction:rtl}
+html.ur .mn-altri{justify-content:flex-end}
+html.ur .cu-dati{direction:rtl}
+html.ur .cu-dati b.in-ur{font-size:.86em;line-height:1.55;margin-top:-4px}
+html.ur .cu-dati b:not(.in-ur){direction:ltr;text-align:right}
+.ur-x{display:none}
+html.ur .ur-x{display:inline;font-family:"Nastaliq",serif;font-style:normal;letter-spacing:0;text-transform:none}
+html.ur .allergeni li em:not(.ur-x){display:none}
+html.ur .allergeni li .ur-x{display:block}
+html.ur .car-lista li{flex-direction:row-reverse;text-align:right}
+html.ur .ur-halal{display:block;color:var(--oro);text-align:right}
