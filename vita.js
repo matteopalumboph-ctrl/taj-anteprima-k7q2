@@ -86,8 +86,12 @@
     memoria.set("taj-lingua", l);
   };
   document.querySelectorAll(".lingua button").forEach((b) => b.addEventListener("click", () => lingua(b.dataset.l)));
+  // ?lang=ur|en|it nel link (QR del menù stampato) vince su tutto; poi la scelta salvata; poi il telefono in urdu (9/11)
+  const daLink = (new URLSearchParams(location.search).get("lang") || "").toLowerCase();
   const salvata = memoria.get("taj-lingua");
-  if (salvata === "en" || salvata === "ur") lingua(salvata);
+  const telefono = (navigator.languages || [navigator.language || ""]).some((x) => /^ur\b/i.test(x)) ? "ur" : "";
+  const scelta = ["it", "en", "ur"].includes(daLink) ? daLink : salvata || telefono;
+  if (scelta === "en" || scelta === "ur") lingua(scelta); else if (daLink === "it") memoria.set("taj-lingua", "it");
 
   // brace del tandoor: scintille zafferano che salgono dal Taj inciso, lente, solo quando l'eroe si vede
   const tela = document.querySelector(".brace");
